@@ -32,7 +32,7 @@
   .stat{display:flex;align-items:center;gap:5px;font-weight:700;font-size:19px;direction:ltr}
   .stat img{width:32px;height:32px}
 
-  .screen{max-width:1220px;margin:16px auto;padding:0 clamp(10px,2.5vw,24px)}
+  .screen{max-width:1500px;margin:16px auto;padding:0 clamp(10px,2.5vw,24px)}
   .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 2px 10px rgba(23,54,94,.05);padding:clamp(16px,2.4vw,26px)}
   h2{color:var(--bordo);font-size:clamp(25px,3vw,31px);margin:0 0 8px}
   .btn{font-family:var(--ui);font-size:18px;font-weight:700;border-radius:14px;padding:10px 24px;min-height:50px;cursor:pointer;border:0;background:var(--green);color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:10px}
@@ -58,14 +58,41 @@
   .dots small{font-size:15px;margin-inline-start:6px;white-space:nowrap}
   .intro{font-size:19px;background:#fbf4e6;border-inline-start:6px solid var(--mustard);border-radius:14px;padding:10px 16px;margin:0 0 14px}
 
-  .board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:18px;align-items:start}
+  .board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:20px;align-items:stretch}
+  @media (min-width:901px){ .board>.card{min-height:calc(100vh - 250px)} }
+  .caseQ{margin:2px 0 0;font-size:20px;font-weight:700;color:var(--blue)}
+  /* לוח החקירות */
+  .boardHead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .boardStatus{font-size:18px;font-weight:700;color:var(--line)}
+  .boardLead{font-size:20px;margin:0 0 14px}
+  .caseGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .caseCard{position:relative;text-align:right;font-family:var(--ui);color:var(--blue);background:#fff;border:2px solid var(--border);border-radius:var(--radius);padding:30px 26px 22px;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-height:200px;box-shadow:0 2px 10px rgba(23,54,94,.06)}
+  .caseCard::before{content:"";position:absolute;top:-2px;inset-inline-start:24px;width:110px;height:14px;background:var(--mustard);border-radius:0 0 10px 10px}
+  .caseCard:hover:not(:disabled){border-color:var(--bordo);transform:translateY(-2px)}
+  .caseCard .cfile{font-size:16px;font-weight:700;color:var(--line)}
+  .caseCard .cname{font-size:clamp(25px,2.8vw,32px);font-weight:700;color:var(--bordo);line-height:1.2}
+  .caseCard .cq{font-size:20px;font-weight:600}
+  .caseCard .copen{margin-top:auto;font-weight:700;color:var(--green);font-size:18px}
+  .caseCard .cstars{margin-top:auto;display:flex;align-items:center;gap:4px;font-weight:700;color:#2f6b40}
+  .caseCard .cstars img{width:30px;height:30px}
+  .caseCard .cstars img.off{opacity:.2;filter:grayscale(1)}
+  .caseCard.done{background:#f3f8f3;border-color:#c4e1ca;cursor:default}
+  .caseCard.done::before{background:var(--green)}
+  .pickPrompt{text-align:center;padding:30px 10px}
+  .pickPrompt p{font-size:19px;margin:6px 0}
+  @media (max-width:700px){ .caseGrid{grid-template-columns:1fr} .caseCard{min-height:150px} }
 
   .crew{display:flex;gap:10px;justify-content:center;margin-bottom:12px}
-  .crew .mini{display:flex;flex-direction:column;align-items:center;font-size:15px;font-weight:600;opacity:.55;position:relative}
-  .crew .mini svg{width:52px;height:52px}
-  .crew .mini.now{opacity:1}
-  .crew .mini.now svg{outline:3px solid var(--bordo);border-radius:50%}
-  .crew .mini.done{opacity:1}
+  .crew{gap:14px;flex-wrap:wrap}
+  .crew .mini{display:flex;flex-direction:column;align-items:center;font-family:var(--ui);color:var(--blue);font-size:17px;font-weight:700;position:relative;background:none;border:2px solid transparent;border-radius:16px;padding:6px 8px;cursor:pointer}
+  .crew .mini svg{width:72px;height:72px;border-radius:50%}
+  .crew button.mini:hover:not(:disabled){border-color:var(--border);background:#faf8f3}
+  .crew .mini.now svg{outline:3px solid var(--bordo);outline-offset:2px}
+  .crew .mini.done{cursor:default}
+  .crew .mini:disabled{cursor:default}
+  .crew .verdictMini{justify-content:center;min-width:80px;border:2px dashed var(--border);color:var(--line);cursor:default}
+  .crew .verdictMini.ready{border-color:var(--bordo);color:var(--bordo)}
+  .crew .verdictMini.now{border-style:solid;border-color:var(--bordo);color:var(--bordo)}
   .crew .tag{font-size:13px;border-radius:8px;padding:0 6px;margin-top:2px}
   .tag.ok{background:rgba(109,181,128,.2);color:#2f6b40}
   .tag.bad{background:rgba(131,32,88,.12);color:var(--bordo)}
@@ -96,8 +123,8 @@
   .evidence .block{border:1px solid var(--border);border-radius:16px;padding:10px;margin-bottom:12px;background:#fff}
   .evidence .block.official{background:#fbfaf6}
   .evidence .block .src{font-size:15px;color:var(--line);margin-bottom:2px}
-  .dtitle{text-align:center;font-weight:700;font-size:17px;margin:0 0 4px}
-  .evidence svg.chart{display:block;width:100%;height:auto;max-height:260px;margin:0 auto}
+  .dtitle{text-align:center;font-weight:700;font-size:19px;margin:0 0 6px}
+  .evidence svg.chart{display:block;width:100%;height:auto;max-height:440px;margin:0 auto}
   .noev{font-size:17px;color:var(--line);text-align:center;padding:8px}
 
   table.freq{border-collapse:separate;border-spacing:0;margin:4px auto;min-width:min(360px,100%);font-size:18px}
@@ -114,7 +141,7 @@
   .picto .legend{display:flex;align-items:center;gap:6px;justify-content:center;font-size:17px;background:#f6f3eb;border-radius:10px;padding:4px 10px;margin-bottom:4px}
   .picto .legend svg{width:24px;height:24px}
   .pie-wrap{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
-  .pie-wrap svg{width:min(230px,58vw)}
+  .pie-wrap svg{width:min(340px,62vw)}
   .pie-legend{display:grid;gap:6px;font-size:17px}
   .pie-legend span{display:flex;align-items:center;gap:8px}
   .pie-legend i{width:16px;height:16px;border-radius:4px;display:inline-block}
@@ -175,17 +202,23 @@
     <div class="lineup" id="lineup" aria-hidden="true"></div>
     <p class="lead">בבית הספר כולם מביאים גרפים וטבלאות כדי להוכיח שהם צודקים. חלקם באמת צודקים, וחלקם מטעים. אתם הבלשים.</p>
     <div class="how">
-      <div><b>1. מקשיבים</b>כל דמות טוענת טענה ומראה ראיה: טבלה או דיאגרמה.</div>
+      <div><b>1. בוחרים</b>תיק מלוח החקירות, ובתוכו דמות שטוענת טענה ומראה ראיה.</div>
       <div><b>2. בודקים</b>מחליטים: צודק או מטעה? ואם מטעה, איפה הטעות.</div>
-      <div><b>3. מכריעים</b>בסוף כל תיק קובעים מה באמת נכון לפי הנתונים.</div>
+      <div><b>3. מכריעים</b>אחרי שבדקתם את כל הדמויות, קובעים מה באמת נכון לפי הנתונים.</div>
     </div>
     <p><button class="img-btn" id="startBtn" type="button" aria-label="התחל משחק"><img data-asset="icons.start" alt=""></button></p>
     <p><button class="btn secondary" id="startHelpBtn" type="button">איך משחקים?</button></p>
   </div>
 </section>
 
+<section class="screen" id="boardScreen" hidden>
+  <div class="boardHead"><h2>לוח החקירות</h2><span class="boardStatus" id="boardStatus"></span></div>
+  <p class="boardLead">בחרו תיק לחקירה – בכל סדר שתרצו.</p>
+  <div class="caseGrid" id="caseGrid"></div>
+</section>
+
 <section class="screen" id="gameScreen" hidden>
-  <div class="casebar"><h2 id="caseTitle"></h2><div class="dots" id="caseDots"></div></div>
+  <div class="casebar"><div><h2 id="caseTitle"></h2><p class="caseQ" id="caseQ"></p></div></div>
   <p class="intro" id="caseIntro"></p>
   <div class="board">
     <div class="card" id="talkPanel">
@@ -208,9 +241,10 @@
 <dialog id="helpDlg" aria-labelledby="helpTitle">
   <h2 id="helpTitle">איך משחקים?</h2>
   <ul>
-    <li>במשחק יש <b>4 תיקים</b>. בכל תיק שלוש דמויות טוענות טענות ומביאות נתונים.</li>
+    <li>על <b>לוח החקירות</b> יש 4 תיקים. בוחרים תיק – בכל סדר.</li>
+    <li>בכל תיק שלוש דמויות טוענות טענות. לוחצים על דמות כדי לשמוע את הטענה שלה.</li>
     <li>לכל דמות מחליטים: <b>צודק</b> או <b>מטעה</b>. אם מטעה, בוחרים איפה הטעות.</li>
-    <li>בסוף התיק קובעים מה באמת נכון לפי הנתונים.</li>
+    <li>אחרי שבדקתם את כל הדמויות, קובעים מה באמת נכון לפי הנתונים.</li>
     <li><img data-asset="icons.star" alt=""> <b>כוכבים:</b> כל תיק מתחיל עם 3 כוכבים. כל טעות מורידה כוכב אחד (לא פחות מ־0).</li>
     <li><img data-asset="icons.trophy" alt=""> <b>גביע:</b> סך הכוכבים שאספתם בכל התיקים.</li>
     <li>בכל משחק הנתונים, הדמויות ומי שמטעה מוגרלים מחדש.</li>
@@ -340,13 +374,13 @@ function pie(title, labels, vals){
 
 /* ---------- סיבות הטעיה ---------- */
 const REASONS = {
-  count:'השווה מספרים בלי להתחשב בגודל הקבוצות. צריך להשוות שכיחות יחסית.',
+  count:'השוואת מספרים בלי להתחשב בגודל הקבוצות. צריך להשוות שכיחות יחסית.',
   axis:'הציר לא מתחיל ב־0, ולכן ההבדל נראה גדול בהרבה ממה שהוא באמת.',
-  legend:'ספר סמלים ושכח את המקרא: כל סמל מייצג יותר מאחד.',
+  legend:'ספירת סמלים בלי לבדוק את המקרא: כל סמל מייצג יותר מאחד.',
   mismatch:'הדיאגרמה לא מתאימה לנתונים בטבלה.',
-  majority:'החלק קטן מחצי העיגול, ופחות מחצי זה לא רוב.',
+  majority:'החלק קטן מחצי העיגול, ולכן הוא פחות ממחצית.',
   total:'סכום השכיחויות בטבלה קטן מהמספר שנטען, אז לא כולם מופיעים בה.',
-  rel:'חילק במספר הלא נכון. שכיחות יחסית = השכיחות חלקי מספר כל הנתונים.',
+  rel:'חלוקה במספר הלא נכון. שכיחות יחסית = השכיחות חלקי מספר כל הנתונים.',
 };
 function reasonOptions(key){ return shuffle([key, ...shuffle(Object.keys(REASONS).filter(k=>k!==key)).slice(0,2)]); }
 
@@ -426,23 +460,23 @@ function caseElection(){
       title:'בחירות לנציג השכבה', intro:`${T} תלמידים הצביעו בבחירות לנציג השכבה. כל מועמד מביא גרף משלו. מי מציג את התוצאות ביושר?`,
       official:null,
       claims:shuffle([
-        pT ? { who:P, role:'מועמד/ת', truth:true, text:'רוב התלמידים הצביעו בשבילי!', ev:pie('תוצאות ההצבעה',names,vals),
-               explain:`החלק של ${P.name} גדול מחצי העיגול: ${FR(vP,T)}, וזה יותר מ־${FR(1,2)}. יש רוב.` }
-           : { who:P, role:'מועמד/ת', truth:false, reason:'majority', text:'רוב התלמידים הצביעו בשבילי!', ev:pie('תוצאות ההצבעה',names,vals),
-               explain:`${P.name} ${G_(P,'קיבל','קיבלה')} הכי הרבה קולות, אבל החלק ${G_(P,'שלו','שלה')} קטן מחצי העיגול: ${FR(vP,T)}, פחות מ־${FR(1,2)}. אין רוב.` },
+        pT ? { who:P, role:'מועמד/ת', truth:true, text:'יותר ממחצית התלמידים הצביעו בשבילי!', ev:pie('תוצאות ההצבעה',names,vals),
+               explain:`החלק של ${P.name} גדול מחצי העיגול: ${FR(vP,T)}, וזה יותר מ־${FR(1,2)}.` }
+           : { who:P, role:'מועמד/ת', truth:false, reason:'majority', text:'יותר ממחצית התלמידים הצביעו בשבילי!', ev:pie('תוצאות ההצבעה',names,vals),
+               explain:`${P.name} ${G_(P,'קיבל','קיבלה')} הכי הרבה קולות, אבל החלק ${G_(P,'שלו','שלה')} קטן מחצי העיגול: ${FR(vP,T)}, פחות מ־${FR(1,2)}. זה הרבה, אבל לא יותר ממחצית.` },
         { who:Q, role:'מועמד/ת', truth:qT, reason:'legend',
           text:`תסתכלו בפיקטוגרמה: ${R.name} ${G_(R,'קיבל','קיבלה')} רק ${claimN} קולות.`,
           ev:picto('מספר הקולות לכל מועמד',names,vals,4,'קולות','vote'),
-          explain: qT ? `בשורה של ${R.name} יש ${N(vR/4)} סמלים, וכל סמל מייצג 4 קולות: ${N(`${vR/4} × 4 = ${vR}`)}. הטענה נכונה.`
-                      : `בשורה של ${R.name} יש ${N(vR/4)} סמלים, אבל כל סמל מייצג 4 קולות: ${N(`${vR/4} × 4 = ${vR}`)}. ${R.name} ${G_(R,'קיבל','קיבלה')} ${N(vR)} קולות, לא ${N(claimN)}.` },
+          explain: qT ? `בשורה של ${R.name} יש ${N(vR/4)} סמלים, וכל סמל מייצג 4 קולות: ${N(`${vR/4} · 4 = ${vR}`)}. הטענה נכונה.`
+                      : `בשורה של ${R.name} יש ${N(vR/4)} סמלים, אבל כל סמל מייצג 4 קולות: ${N(`${vR/4} · 4 = ${vR}`)}. ${R.name} ${G_(R,'קיבל','קיבלה')} ${N(vR)} קולות, לא ${N(claimN)}.` },
         { who:R, role:'מועמד/ת', truth:rT, reason:'axis',
           text:`קיבלתי פי 2 קולות מ${S.name}. רואים את זה בדיאגרמה!`,
           ev:barChart({title:`הקולות של ${R.name} ושל ${S.name}`,labels:[R.name,S.name],vals:[vR,vS],...axis,yTitle:'קולות'}),
-          explain: rT ? `הציר מתחיל ב־0. ${R.name}: ${N(vR)}, ${S.name}: ${N(vS)}, ובאמת ${N(`${vR} = 2 × ${vS}`)}.`
+          explain: rT ? `הציר מתחיל ב־0. ${R.name}: ${N(vR)}, ${S.name}: ${N(vS)}, ובאמת ${N(`${vR} = 2 · ${vS}`)}.`
                       : `הציר מתחיל ב־${N(axis.ymin)} ולא ב־0, ולכן העמודה נראית גבוהה בהרבה. בפועל ${N(vR)} לעומת ${N(vS)}. פי 2 מ־${N(vS)} זה ${N(2*vS)}.` },
       ]),
-      verdict:{ q:'מה באמת קרה בבחירות?', answer: pT?`${winnerTxt}, ויש ${G_(P,'לו','לה')} רוב`:`${winnerTxt}, אבל אין ${G_(P,'לו','לה')} רוב`,
-        options:shuffle([`${winnerTxt}, ויש ${G_(P,'לו','לה')} רוב`,`${winnerTxt}, אבל אין ${G_(P,'לו','לה')} רוב`,`${R.name} ${G_(R,'ניצח','ניצחה')} בבחירות`]),
+      verdict:{ q:'מה באמת קרה בבחירות?', answer: pT?`${winnerTxt} עם יותר ממחצית הקולות`:`${winnerTxt}, אבל עם פחות ממחצית הקולות`,
+        options:shuffle([`${winnerTxt} עם יותר ממחצית הקולות`,`${winnerTxt}, אבל עם פחות ממחצית הקולות`,`${R.name} ${G_(R,'ניצח','ניצחה')} בבחירות`]),
         explain:`${P.name} ${G_(P,'קיבל','קיבלה')} ${N(vP)} מתוך ${N(T)} קולות, כלומר ${FRr(vP,T)}. זה ${pT?'יותר':'פחות'} מחצי.` },
     };
   }
@@ -518,12 +552,12 @@ function caseLibrary(){
       claims:shuffle([
         { who:Y1, role:'תלמיד/ה בכיתה', truth:aT, reason:'legend',
           text:`לפי הפיקטוגרמה, השאילו ${claimN} ספרי ${genres[H]}.`, ev:null,
-          explain: aT ? `בשורת ${genres[H]} יש ${N(v[H]/4)} סמלים, וכל סמל מייצג 4 ספרים: ${N(`${v[H]/4} × 4 = ${v[H]}`)}. נכון.`
-                      : `בשורת ${genres[H]} יש ${N(v[H]/4)} סמלים, אבל כל סמל מייצג 4 ספרים: ${N(`${v[H]/4} × 4 = ${v[H]}`)}.` },
+          explain: aT ? `בשורת ${genres[H]} יש ${N(v[H]/4)} סמלים, וכל סמל מייצג 4 ספרים: ${N(`${v[H]/4} · 4 = ${v[H]}`)}. נכון.`
+                      : `בשורת ${genres[H]} יש ${N(v[H]/4)} סמלים, אבל כל סמל מייצג 4 ספרים: ${N(`${v[H]/4} · 4 = ${v[H]}`)}.` },
         { who:Y2, role:'חבר/ת ועד הספרייה', truth:bT, reason:'majority',
-          text:`הכנתי דיאגרמת עיגול: רוב הספרים שהושאלו הם ספרי ${genres[M]}.`, ev:pie('ספרים שהושאלו לפי ז׳אנר',genres,v),
+          text:`הכנתי דיאגרמת עיגול: יותר ממחצית הספרים שהושאלו הם ספרי ${genres[M]}.`, ev:pie('ספרים שהושאלו לפי ז׳אנר',genres,v),
           explain: bT ? `החלק של ${genres[M]} גדול מחצי העיגול: ${FR(v[M],T2)}, יותר מ־${FR(1,2)}.`
-                      : `${genres[M]} הוא הז׳אנר הגדול ביותר, אבל החלק שלו קטן מחצי העיגול: ${FR(v[M],T2)}, פחות מ־${FR(1,2)}. זה לא רוב.` },
+                      : `${genres[M]} הוא הז׳אנר הגדול ביותר, אבל החלק שלו קטן מחצי העיגול: ${FR(v[M],T2)}, פחות מ־${FR(1,2)}. זה לא יותר ממחצית.` },
         { who:Y3, role:'תלמיד/ה בכיתה', truth:cT, reason:'mismatch',
           text:`העתקתי את הפיקטוגרמה לדיאגרמת עמודות. ${genres[K]} הושאל הכי הרבה.`,
           ev:barChart({title:`ספרים שהושאלו (הדיאגרמה של ${Y3.name})`,labels:genres,vals:cv,ymin:0,ymax:Math.ceil((Math.max(...v)+1)/5)*5,step:5,yTitle:'ספרים'}),
@@ -538,25 +572,54 @@ function caseLibrary(){
 const CASE_MAKERS=[caseSport,caseElection,caseCafe,caseLibrary];
 
 /* ---------- מצב ---------- */
+const CASE_INFO=new Map([
+  [caseSport,   {name:'פרשת הטיול',             q:'איזו כיתה באמת זוכה בטיול?'}],
+  [caseElection,{name:'תעלומת הקלפי',            q:'מי באמת ניצח בבחירות?'}],
+  [caseCafe,    {name:'שערוריית המזנון',         q:'ממה המזנון צריך להזמין הכי הרבה?'}],
+  [caseLibrary, {name:'התיק הסודי של הספרייה',   q:'מאיזה ז׳אנר כדאי לקנות ספרים חדשים?'}],
+]);
 let G=null;
-function show(id){ ['startScreen','gameScreen','endScreen'].forEach(s=>$(s).hidden=s!==id);
-  $('homeBtn').hidden=id==='startScreen'; $('starStat').hidden=id!=='gameScreen'; $('trophyStat').hidden=id==='startScreen'; }
-function stats(){ if(!G) return; $('starVal').textContent=G.stars; $('trophyVal').textContent=G.total; }
-function newGame(){ G={order:shuffle(CASE_MAKERS), i:-1, total:0, results:[]}; show('gameScreen'); nextCase(); }
-function nextCase(){
-  G.i++; G.C=G.order[G.i](); G.stars=3; G.k=0; G.marks=[]; stats();
-  const C=G.C;
-  $('caseTitle').textContent=`תיק ${G.i+1}: ${C.title}`;
-  $('caseDots').innerHTML=G.order.map((_,k)=>`<span class="${k<G.i?'done':k===G.i?'now':''}"></span>`).join('')+`<small>תיק ${G.i+1} מתוך ${G.order.length}</small>`;
-  $('caseIntro').textContent=C.intro;
-  claimStep();
+const SCREENS=['startScreen','boardScreen','gameScreen','endScreen'];
+function show(id){ SCREENS.forEach(s=>$(s).hidden=s!==id);
+  $('homeBtn').hidden=id==='startScreen'; $('starStat').hidden=id!=='gameScreen'; $('trophyStat').hidden=id==='startScreen'; window.scrollTo(0,0); }
+function stats(){ if(!G) return; $('starVal').textContent=G.stars??0; $('trophyVal').textContent=G.total; }
+const starsHTML=n=>[0,1,2].map(k=>`<img src="${ASSETS.icons.star}" class="${k<n?'':'off'}" alt="">`).join('');
+function newGame(){
+  G={cases:CASE_MAKERS.map(f=>({...f(),...CASE_INFO.get(f),stars:null})), total:0, stars:0};
+  showBoard();
+}
+function showBoard(){
+  show('boardScreen'); stats();
+  const closed=G.cases.filter(c=>c.stars!==null).length;
+  $('boardStatus').textContent=`נסגרו ${closed} מתוך ${G.cases.length} תיקים`;
+  $('caseGrid').innerHTML=G.cases.map((c,i)=>{
+    const done=c.stars!==null;
+    return `<button type="button" class="caseCard${done?' done':''}" data-i="${i}"${done?' disabled':''}>
+      <span class="cfile">תיק ${i+1}${done?' · נסגר':''}</span>
+      <span class="cname">${c.name}</span>
+      <span class="cq">${c.q}</span>
+      ${done?`<span class="cstars">${starsHTML(c.stars)}</span>`:`<span class="copen">לפתוח את התיק ←</span>`}
+    </button>`; }).join('');
+  const first=$('caseGrid').querySelector('.caseCard:not(:disabled)'); if(first) first.focus({preventScroll:true});
+}
+function openCase(i){
+  G.C=G.cases[i]; G.stars=3; G.k=null; G.done=[false,false,false]; stats();
+  show('gameScreen');
+  $('caseTitle').textContent=G.C.name;
+  $('caseQ').textContent=G.C.q;
+  $('caseIntro').textContent=G.C.intro;
+  pickStep();
 }
 function roleOf(p,role){ // "נציג/ת ז׳1" -> לפי מגדר
   return role.replace(/(\S+)\/(ת|ה)/g,(m,base,suf)=> p.gender==='f' ? (suf==='ת'? base+'ת' : base.replace(/י$/,'')+'ה') : base);
 }
+const allDone=()=>G.done.every(Boolean);
 function renderCrew(){
-  $('crew').innerHTML=G.C.claims.map((c,k)=>`<div class="mini ${k===G.k?'now':k<G.k?'done':''}">${avatar(c.who.look,'')}<span>${c.who.name}</span>${k<G.k?`<span class="tag ${c.truth?'ok':'bad'}">${c.truth?G_(c.who,'צודק','צודקת'):G_(c.who,'מטעה','מטעה')}</span>`:''}</div>`).join('')
-    + `<div class="mini ${G.k===3?'now':''}" style="justify-content:center"><span style="font-size:15px;margin-top:16px">הכרעה</span></div>`;
+  const lock=G.phase==='why'||G.phase==='verdict';
+  $('crew').innerHTML=G.C.claims.map((c,k)=>{
+    const d=G.done[k];
+    return `<button type="button" class="mini${k===G.k?' now':''}${d?' done':''}" data-k="${k}"${d||lock?' disabled':''} aria-label="${c.who.name}${d?' – נבדק':''}">${avatar(c.who.look,'')}<span>${c.who.name}</span>${d?`<span class="tag ${c.truth?'ok':'bad'}">${c.truth?G_(c.who,'צודק','צודקת'):'מטעה'}</span>`:''}</button>`;
+  }).join('') + `<div class="mini verdictMini${G.phase==='verdict'?' now':allDone()?' ready':''}"><span>הכרעה</span></div>`;
 }
 function renderEvidence(extra){
   const C=G.C; let h='';
@@ -564,23 +627,31 @@ function renderEvidence(extra){
   if(extra!==undefined) h+=extra;
   $('evPanel').innerHTML=h || '<div class="noev">אין ראיה נוספת.</div>';
 }
-function claimStep(){
-  const C=G.C, c=C.claims[G.k], p=c.who;
-  renderCrew();
+function pickStep(){
+  G.phase='pick'; G.k=null; renderCrew();
+  const left=G.done.filter(d=>!d).length;
+  renderEvidence(G.C.official?undefined:'<div class="noev">בחרו דמות כדי לראות את הראיה שלה.</div>');
+  $('talkBody').innerHTML = left
+    ? `<div class="pickPrompt"><p class="ask">${left===3?'במי מתחילים?':'במי ממשיכים?'}</p><p>לחצו על אחת הדמויות כדי לשמוע את הטענה שלה ולבדוק אותה.</p></div>`
+    : `<div class="pickPrompt"><p class="ask">בדקתם את כל הטענות.</p><div class="actions"><button class="btn" id="toVerdict" type="button">להכרעה בתיק</button></div></div>`;
+  if(!left){ $('toVerdict').addEventListener('click',verdictStep); $('toVerdict').focus({preventScroll:true}); }
+}
+function claimStep(k){
+  G.k=k; const C=G.C, c=C.claims[k], p=c.who;
+  G.phase='judge'; renderCrew();
   renderEvidence(c.ev ? `<div class="block"><div class="src">הראיה של ${p.name}</div>${c.ev}</div>` : (C.official?'':`<div class="noev">${p.name} לא ${G_(p,'הביא','הביאה')} ראיה. בדקו בנתונים.</div>`));
-  G.phase='judge';
   $('talkBody').innerHTML=`
     <div class="speaker">${avatar(p.look)}<div style="flex:1"><div class="nm">${p.name}</div><div class="role">${roleOf(p,c.role)}</div>
       <div class="bubble">${c.text}</div></div></div>
     <p class="ask">האם ${p.name} ${G_(p,'צודק','צודקת')}?</p>
     <div class="choices" id="judge">
       <button class="choice big" type="button" data-v="1">${G_(p,'צודק','צודקת')}</button>
-      <button class="choice big" type="button" data-v="0">${G_(p,'מטעה','מטעה')}</button></div>
+      <button class="choice big" type="button" data-v="0">מטעה</button></div>
     <div id="why" hidden><p class="ask">איפה הטעות?</p><div class="choices col" id="reasons"></div></div>
     <div class="feedback" id="fb" role="status" aria-live="polite"></div>
-    <div class="actions"><button class="btn" id="nextBtn" type="button" hidden>${G.k<2?'לדמות הבאה':'להכרעה'}</button></div>`;
+    <div class="actions"><button class="btn" id="nextBtn" type="button" hidden></button></div>`;
   $('judge').addEventListener('click',onJudge);
-  $('nextBtn').addEventListener('click',()=>{ G.k++; G.k<3?claimStep():verdictStep(); });
+  $('nextBtn').addEventListener('click',()=>{ allDone()?verdictStep():pickStep(); });
 }
 function miss(){ G.stars=Math.max(0,G.stars-1); stats(); play('error'); }
 function fb(cls,head,body=''){ $('fb').className='feedback '+cls; $('fb').innerHTML=`<div class="head">${head}</div>${body?`<div class="explain">${body}</div>`:''}`; }
@@ -609,10 +680,14 @@ function onReason(e){
     play('success'); fb('ok','בדיוק! זו הטעות.', c.explain); finishClaim();
   } else { b.classList.add('wrong'); b.disabled=true; miss(); fb('bad','זו לא הטעות כאן. בדקו שוב את הראיה.'); }
 }
-function finishClaim(){ G.phase='done'; $('nextBtn').hidden=false; $('nextBtn').focus({preventScroll:true}); }
+function finishClaim(){
+  G.done[G.k]=true; G.phase='done'; renderCrew();
+  $('nextBtn').textContent=allDone()?'להכרעה בתיק':'לבחירת הדמות הבאה';
+  $('nextBtn').hidden=false; $('nextBtn').focus({preventScroll:true});
+}
 
 function verdictStep(){
-  const C=G.C, V=C.verdict; G.k=3; renderCrew(); G.phase='verdict';
+  const C=G.C, V=C.verdict; G.k=null; G.phase='verdict'; renderCrew();
   const ev=C.claims.filter(c=>c.ev).map(c=>`<div class="block"><div class="src">הראיה של ${c.who.name}${c.truth?'':' (מטעה)'}</div>${c.ev}</div>`).join('');
   renderEvidence(C.official?'':ev);
   $('talkBody').innerHTML=`
@@ -630,24 +705,26 @@ function verdictStep(){
   $('nextBtn').addEventListener('click',caseEnd);
 }
 function caseEnd(){
-  G.total+=G.stars; G.results.push(G.stars); stats();
-  const last=G.i===G.order.length-1;
+  G.C.stars=G.stars; G.total+=G.stars; stats();
+  const last=G.cases.every(c=>c.stars!==null);
   $('crew').innerHTML='';
   $('talkBody').innerHTML=`<div style="text-align:center"><h2>התיק נסגר!</h2>
     <div class="stars">${[0,1,2].map(k=>`<img src="${ASSETS.icons.star}" class="${k<G.stars?'':'off'}" alt="">`).join('')}</div>
     <p style="font-size:19px">${G.stars===3?'בלי אף טעות!':`קיבלתם ${G.stars} ${G.stars===1?'כוכב':'כוכבים'} מתוך 3.`}</p>
-    <button class="btn" id="caseNext" type="button">${last?'לסיכום המשחק':'לתיק הבא'}</button></div>`;
-  $('caseNext').addEventListener('click',()=> last?finish():nextCase());
+    <button class="btn" id="caseNext" type="button">${last?'לסיכום המשחק':'חזרה ללוח החקירות'}</button></div>`;
+  $('caseNext').addEventListener('click',()=> last?finish():showBoard());
   $('caseNext').focus({preventScroll:true});
 }
 function finish(){
-  show('endScreen'); const max=3*G.order.length;
+  show('endScreen'); const max=3*G.cases.length;
   $('endTitle').textContent=G.total===max?'בלשים מושלמים!':'סיימתם את כל התיקים!';
   $('endSummary').innerHTML=`אספתם <b>${G.total}</b> כוכבים מתוך <b>${max}</b>.`;
   play('finish');
 }
 
 $('startBtn').addEventListener('click',newGame);
+$('caseGrid').addEventListener('click',e=>{ const b=e.target.closest('.caseCard'); if(b&&!b.disabled) openCase(+b.dataset.i); });
+$('crew').addEventListener('click',e=>{ const b=e.target.closest('button.mini'); if(!b||b.disabled||!G||!['pick','judge','done'].includes(G.phase)) return; claimStep(+b.dataset.k); });
 $('againBtn').addEventListener('click',newGame);
 $('homeBtn').addEventListener('click',()=>{ stopSounds(); G=null; show('startScreen'); });
 const dlg=$('helpDlg'); [$('helpBtn'),$('startHelpBtn')].forEach(b=>b.addEventListener('click',()=>dlg.showModal()));
