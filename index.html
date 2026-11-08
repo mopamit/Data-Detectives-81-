@@ -93,6 +93,7 @@
   .crew .verdictMini{justify-content:center;min-width:80px;border:2px dashed var(--border);color:var(--line);cursor:default}
   .crew .verdictMini.ready{border-color:var(--bordo);color:var(--bordo)}
   .crew .verdictMini.now{border-style:solid;border-color:var(--bordo);color:var(--bordo)}
+  .crew .crole{font-size:15px;font-weight:600;color:var(--bordo);line-height:1.2;margin-top:1px;white-space:nowrap}
   .crew .tag{font-size:13px;border-radius:8px;padding:0 6px;margin-top:2px}
   .tag.ok{background:rgba(109,181,128,.2);color:#2f6b40}
   .tag.bad{background:rgba(131,32,88,.12);color:var(--bordo)}
@@ -154,6 +155,7 @@
   .summary{display:grid;gap:8px;margin:10px 0}
   .summary .it{display:flex;gap:10px;align-items:center;background:#f6f3eb;border-radius:14px;padding:8px 12px;text-align:right}
   .summary svg{width:48px;height:48px;flex:none}
+  .summary .srole{color:var(--bordo);font-weight:600}
   .stars{display:flex;justify-content:center;gap:6px;margin:6px 0}
   .stars img{width:44px;height:44px}
   .stars img.off{opacity:.2;filter:grayscale(1)}
@@ -618,7 +620,7 @@ function renderCrew(){
   const lock=G.phase==='why'||G.phase==='verdict';
   $('crew').innerHTML=G.C.claims.map((c,k)=>{
     const d=G.done[k];
-    return `<button type="button" class="mini${k===G.k?' now':''}${d?' done':''}" data-k="${k}"${d||lock?' disabled':''} aria-label="${c.who.name}${d?' – נבדק':''}">${avatar(c.who.look,'')}<span>${c.who.name}</span>${d?`<span class="tag ${c.truth?'ok':'bad'}">${c.truth?G_(c.who,'צודק','צודקת'):'מטעה'}</span>`:''}</button>`;
+    return `<button type="button" class="mini${k===G.k?' now':''}${d?' done':''}" data-k="${k}"${d||lock?' disabled':''} aria-label="${c.who.name}, ${roleOf(c.who,c.role)}${d?' – נבדק':''}">${avatar(c.who.look,'')}<span>${c.who.name}</span><span class="crole">${roleOf(c.who,c.role)}</span>${d?`<span class="tag ${c.truth?'ok':'bad'}">${c.truth?G_(c.who,'צודק','צודקת'):'מטעה'}</span>`:''}</button>`;
   }).join('') + `<div class="mini verdictMini${G.phase==='verdict'?' now':allDone()?' ready':''}"><span>הכרעה</span></div>`;
 }
 function renderEvidence(extra){
@@ -691,7 +693,7 @@ function verdictStep(){
   const ev=C.claims.filter(c=>c.ev).map(c=>`<div class="block"><div class="src">הראיה של ${c.who.name}${c.truth?'':' (מטעה)'}</div>${c.ev}</div>`).join('');
   renderEvidence(C.official?'':ev);
   $('talkBody').innerHTML=`
-    <div class="summary">${C.claims.map(c=>`<div class="it">${avatar(c.who.look,'')}<div><b>${c.who.name}:</b> ${c.truth?G_(c.who,'צודק','צודקת'):G_(c.who,'מטעה','מטעה')+' – '+REASONS[c.reason]}</div></div>`).join('')}</div>
+    <div class="summary">${C.claims.map(c=>`<div class="it">${avatar(c.who.look,'')}<div><b>${c.who.name}</b> <span class="srole">(${roleOf(c.who,c.role)})</span><b>:</b> ${c.truth?G_(c.who,'צודק','צודקת'):G_(c.who,'מטעה','מטעה')+' – '+REASONS[c.reason]}</div></div>`).join('')}</div>
     <p class="ask">${V.q}</p>
     <div class="choices col" id="verd">${V.options.map(o=>`<button class="choice" type="button">${o}</button>`).join('')}</div>
     <div class="feedback" id="fb" role="status" aria-live="polite"></div>
